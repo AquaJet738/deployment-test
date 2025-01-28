@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#header {
+    font-family: "Playwrite AU SA";
+    color: whitesmoke;
+}
+
+body {
+    font-family: "Open Sans";
+    color: whitesmoke;
+    background-color: darkgreen;
+}
+
+#link {
+    color: purple;
+}
+
+img {
+    padding: 2em;
+    width: 60%;
+}
+
+#name {
+    font-family: "Playwrite AU SA";
+    color: purple;
+    margin-left: 1em;
+}
+
+.navbar {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: left;
+    align-items: center;
+    gap: 2em;
+    background-color: silver;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: [first] 1fr [line2] 1fr;
+}
+
+.personal-info {
+    padding-left: 2em;
+}
+
+#contact-grid {
+    display: grid;
+    grid-template-columns: [first] 0.25fr [line2] 1fr;
+}
+
+#projects {
+    color: purple;
+    margin-left: 1em;
+}
+
+.list-of-projects {
+    margin: 1em;
+}
+
+.sec2 {
+    padding-top: --default-top-padding;
+}
+
+#subtitle {
+    padding-top: 1em;
+}

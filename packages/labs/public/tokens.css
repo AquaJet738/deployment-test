@@ -1,0 +1,4 @@
+:root {
+    --default-top-padding: 1em;
+    --top-padding-link: var(--default-top-padding);
+}
