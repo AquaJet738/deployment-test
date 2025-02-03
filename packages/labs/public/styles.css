@@ -14,6 +14,10 @@ body {
     background-color: darkgreen;
 }
 
+a.active {
+    font-weight: bold;
+}
+
 #link {
     color: purple;
 }
@@ -53,6 +57,7 @@ img {
 }
 
 #projects {
+    font-family: "Playwrite AU SA";
     color: purple;
     margin-left: 1em;
 }
