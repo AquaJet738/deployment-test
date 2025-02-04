@@ -67,7 +67,7 @@ img {
 }
 
 .sec2 {
-    padding-top: --default-top-padding;
+    padding-top: var(--top-padding-link);
 }
 
 #subtitle {

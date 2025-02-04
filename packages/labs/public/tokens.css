@@ -1,4 +1,11 @@
 :root {
     --default-top-padding: 1em;
-    --top-padding-link: var(--default-top-padding);
+}
+    
+body.light-mode {
+    --color-background-header: #b0c6ff;
+    --color-background: #aeaeff;
+    --color-text: #1a2b1b;
+    --color-link: #8a7a00;
+    --color-border: var(--color-link);
 }
