@@ -97,12 +97,20 @@ document.addEventListener("DOMContentLoaded", () => {
         navLinks.style.display = navLinks.style.display === "flex" ? "none" : "flex";
     });
 
-    document.addEventListener("click", (event) => {
-        console.log("button clicked");
-        if (!header.contains(event.target) && navLinks.style.display === "flex") {
+    $(document).on("click", function(event) {
+        if (!$(event.target).closest(".menubtn").length) {
             navLinks.style.display = "none";
         }
     });
+
+    /*
+    document.addEventListener("click", (event) => {
+        console.log("button clicked");
+
+        if (!header.contains(event.target) && navLinks.style.display === "flex") {
+            navLinks.style.display = "none";
+        }
+    });*/
 
     lightModeToggle.addEventListener("change", () => {
         console.log("Light mode toggled:", lightModeToggle.checked);
