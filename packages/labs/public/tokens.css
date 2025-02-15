@@ -1,10 +1,16 @@
 :root {
     --default-top-padding: 1em;
+
+    --color-background-header: #008b2c;
+    --color-background: green;
+    --color-text: whitesmoke;
+    --color-link: lightgray;
+    --color-border: var(--color-link);
 }
     
 body.light-mode {
     --color-background-header: #b0c6ff;
-    --color-background: #aeaeff;
+    --color-background: lightblue;
     --color-text: #1a2b1b;
     --color-link: #8a7a00;
     --color-border: var(--color-link);

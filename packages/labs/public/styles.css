@@ -8,14 +8,15 @@
     color: whitesmoke;
 }
 
-body {
-    font-family: "Open Sans";
-    color: whitesmoke;
-    background-color: darkgreen;
+#header {
+    font-family: "Playwrite AU SA";
+    color: var(--color-text);
 }
 
-a.active {
-    font-weight: bold;
+body {
+    font-family: "Open Sans";
+    color: var(--color-text);
+    background-color: var(--color-background);
 }
 
 #link {
