@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+th {
+    padding-left: 1.5em;
+}
+
+td {
+    padding-left: 1.5em;
+}
