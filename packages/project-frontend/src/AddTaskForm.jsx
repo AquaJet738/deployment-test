@@ -4,11 +4,14 @@ import React from "react";
 function AddTaskForm({ onNewTask }) {
     const [newTask, setTaskName] = React.useState("");
     const [dueDate, setDueDate] = React.useState("");
+    const [nagPeriod, setNagPeriod] = React.useState("");  // this will be a dropdown, just using input as placeholder
 
     const handleAddTask = () => {
         if (newTask.trim()) {
             onNewTask(newTask);
             setTaskName("");
+            setDueDate("");
+            setNagPeriod("");
         }
     }; 
 
@@ -24,11 +27,16 @@ function AddTaskForm({ onNewTask }) {
                 placeholder="Due date" 
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}/>
+            <input className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none 
+                focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                placeholder="Nag Period" 
+                value={nagPeriod}
+                onChange={(e) => setNagPeriod(e.target.value)}/>
             <button className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md 
                 hover:bg-blue-650 active:bg-blue-800 focus:outline-none focus:ring-2 
                 focus:ring-blue-400 focus:ring-opacity-75"
                 onClick={handleAddTask}>
-                Add task
+                Add to List
             </button>
         </div>
     );
