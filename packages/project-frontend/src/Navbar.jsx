@@ -1,10 +1,11 @@
 import React from "react";
-import Sidebar from "./Sidebar";
+import { Spinner } from "./Spinner";
 
 // Implements a sticky navbar to the top of the page
 const Navbar = ({ darkMode }) => {
   const [isSidebarOpen, setSidebarOpen] = React.useState(true);
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+  const [loading, setLoading] = React.useState(true);
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
@@ -37,15 +38,25 @@ const Navbar = ({ darkMode }) => {
           CSC 437 Final Project
         </h1>
 
-        {/*Navigation pages are always shown on laptops and desktops*/}
+
+        {/* Loading indicator on desktop */}
+        {!isMobile && loading && (
+          <div className={`fixed right-45 top-4.5 text-black 
+            ${darkMode ? "text-white" : "text-black"}
+            `}>
+            <Spinner />
+          </div>
+        )}
+
         {!isMobile && (
           <ul className="flex right-0 space-x-6 ml-auto mr-2">
             <li><a href="#" className="hover:text-gray-300">Home</a></li>
             <li><a href="#" className="hover:text-gray-300">My Profile</a></li>
           </ul>
         )}
-        
-        {/*The sidebar is used only for tablets and mobile devices*/}
+
+
+        {/* Loading indicator on mobile */}
         {isMobile && isSidebarOpen && (
           <div className={`fixed top-14 right-0 w-48 h-auto p-4 z-40 shadow-lg ${
               darkMode ? "bg-gray-700 text-white" : "bg-gray-100 text-black"
@@ -54,6 +65,14 @@ const Navbar = ({ darkMode }) => {
               <li><a href="#" className="block py-2">Home</a></li>
               <li><a href="#" className="block py-2">My Profile</a></li>
             </ul>
+          </div>
+        )}
+
+        {isMobile && loading && (
+          <div className={`fixed right-15 top-4.5 text-black 
+            ${darkMode ? "text-white" : "text-black"}
+            `}>
+            <Spinner />
           </div>
         )}
       </nav>

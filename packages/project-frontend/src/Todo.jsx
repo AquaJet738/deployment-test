@@ -5,9 +5,9 @@ function Todo(props) {
     console.log(props);
     return (
         <div className="flex space-x-8">
-            <label className="todo-label" htmlFor={props.id}>
+            <label className="todo-label flex items-center space-x-4" htmlFor={props.id}>
                 <input id={props.id} type="checkbox" defaultChecked={props.completed} onChange={() => props.toggleTaskCompleted(props.id)}/> 
-                    {props.name} - {props.dueDate || "No due date"} - {props.nagPeriod || "No nag period"}
+                    <span>{props.name} - {props.dueDate || "No due date"} - {props.nagPeriod || "No nag period"}</span>
             </label>
             <button className="text-gray-500 hover:text-gray-200" onClick={() => props.deleteTask(props.id)}>
                 <FontAwesomeIcon icon={faTrash} />

@@ -78,6 +78,7 @@ function App(props) {
     const [darkMode, setDarkMode] = React.useState(() => {
         return localStorage.getItem("theme") === "dark";
     });
+    const [selectedList, setSelectedList] = React.useState(null); // Track selected list 
 
     const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
@@ -87,7 +88,9 @@ function App(props) {
           setIsMobile(mobileView);
           
           // Ensure sidebar is always visible on larger screens
-          if (!mobileView) setSidebarOpen(false);
+          if (!mobileView) {
+            setSidebarOpen(false);
+          }
         };
     
         window.addEventListener("resize", handleResize);
@@ -116,31 +119,44 @@ function App(props) {
     }
 
     function addTask(name, dueDate, nagPeriod) {
-        const newTask = { id: `todo-${nanoid()}`, name, dueDate, nagPeriod, completed: false };
-        setTaskList([...taskList, newTask]);
+        if (!selectedList) {
+            return;
+        }
+
+        const newTask = { id: `todo-${nanoid()}`, name, dueDate, nagPeriod, completed: false, list: selectedList };
+        setTaskList((prevTaskList) => [...prevTaskList, newTask]);
         setIsModalOpen(false);
     };
+
+    // display only the tasks contained within the selected list
+    const tasksToDisplay = selectedList ? taskList.filter(
+        (task) => task.list === selectedList) : taskList;
 
     return (
         <main className="m-4"> {/* Tailwind: margin level 4 on all sides*/}
             <Navbar darkMode={darkMode}/>
-            <Sidebar isOpen={isSidebarOpen} isMobile={isMobile} toggleSidebar={toggleSidebar} darkMode={darkMode}/>
+            <Sidebar isOpen={isSidebarOpen} isMobile={isMobile} 
+                toggleSidebar={toggleSidebar} darkMode={darkMode} 
+                setSelectedList={setSelectedList}/>
             <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode}/>
 
             <div className="flex right-0 justify-between items-center">
             </div>
             <section className="mt-5">
-                {/*<h1 className="text-xl font-bold">To do</h1>**/}
-                <ul role="list" className="todo-list stack-large stack-exception" aria-labelledby="list-heading">
-                    {taskList.map((task) => (
-                        <Todo id={task.id} 
-                        name={task.name} 
-                        dueDate={task.dueDate} 
-                        nagPeriod={task.nagPeriod} 
-                        completed={task.completed} 
-                        key={task.id} 
-                        toggleTaskCompleted={toggleTaskCompleted} 
-                        deleteTask={deleteTask} />))}
+                <ul role="list" className="todo-list stack-large stack-exception" 
+                    aria-labelledby="list-heading">
+                    {tasksToDisplay.map((task) => (
+                        <Todo 
+                            id={task.id} 
+                            name={task.name} 
+                            dueDate={task.dueDate} 
+                            nagPeriod={task.nagPeriod} 
+                            completed={task.completed} 
+                            key={task.id} 
+                            toggleTaskCompleted={toggleTaskCompleted} 
+                            deleteTask={deleteTask} 
+                        />
+                    ))}
                 </ul>
             </section>
             <button onClick={() => setIsModalOpen(true)} className="p-1 mr-4 bg-blue-600 text-white">

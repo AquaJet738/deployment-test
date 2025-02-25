@@ -5,11 +5,12 @@ import App from './App.jsx'
 
 // eslint-disable-next-line
 const DATA = [];
+const LISTS = [];
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <div style={{marginLeft: "12.5em", marginTop: "3.5em"}}>
-      <App tasks={DATA} />
+      <App tasks={DATA} lists={LISTS}/>
     </div>
   </StrictMode>,
 )
