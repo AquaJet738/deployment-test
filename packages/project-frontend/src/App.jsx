@@ -124,6 +124,7 @@ function App(props) {
         }
 
         const newTask = { id: `todo-${nanoid()}`, name, dueDate, nagPeriod, completed: false, list: selectedList };
+        console.log(newTask);
         setTaskList((prevTaskList) => [...prevTaskList, newTask]);
         setIsModalOpen(false);
     };

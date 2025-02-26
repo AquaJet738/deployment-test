@@ -7,8 +7,8 @@ function AddTaskForm({ onNewTask }) {
     const [nagPeriod, setNagPeriod] = React.useState("");  // this will be a dropdown, just using input as placeholder
 
     const handleAddTask = () => {
-        if (newTask.trim()) {
-            onNewTask(newTask);
+        if (newTask.trim() && dueDate.trim() && nagPeriod.trim()) {
+            onNewTask(newTask, dueDate, nagPeriod);
             setTaskName("");
             setDueDate("");
             setNagPeriod("");
