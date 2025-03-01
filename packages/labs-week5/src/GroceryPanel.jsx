@@ -1,9 +1,6 @@
 import React from "react";
 import { Spinner } from "./Spinner";
-import { groceryFetcher } from "./groceryFetcher";
 import { useGroceryFetch } from "./useGroceryFetch";
-
-const MDN_URL = "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json";
 
 /**
  * Creates and returns a new promise that resolves after a specified number of milliseconds.
