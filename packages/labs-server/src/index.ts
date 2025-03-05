@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 const staticDir = process.env.STATIC_DIR || "public";
 
 const { MONGO_USER, MONGO_PWD, MONGO_CLUSTER, DB_NAME } = process.env;
+console.log(process.env);
 
 const connectionStringRedacted = `mongodb+srv://${MONGO_USER}:<password>@${MONGO_CLUSTER}/${DB_NAME}`;
 const connectionString = `mongodb+srv://${MONGO_USER}:${MONGO_PWD}@${MONGO_CLUSTER}/${DB_NAME}`;

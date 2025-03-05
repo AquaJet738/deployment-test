@@ -22,7 +22,7 @@ export class ImageProvider {
     async getAllImages(): Promise<ImageDocument[]> { // TODO #2
         try {
             const collectionName = process.env.IMAGES_COLLECTION_NAME;
-            const authorsCollectionName = process.env.AUTHORS_COLLECTION_NAME;
+            const authorsCollectionName = process.env.USERS_COLLECTION_NAME;
     
             if (!collectionName || !authorsCollectionName) {
                 throw new Error("Missing collection names from environment variables");
