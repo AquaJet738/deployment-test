@@ -39,4 +39,4 @@ GET http://localhost:3000/api/images
 
 ### 
 GET http://localhost:3000/api/images
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWFqZXQ3MzgiLCJleHBpcmVzSW4iOjE3NDE4ODM3OTksImlhdCI6MTc0MTc5NzM5OX0.-I4fCyUMPWc44zr6Zs7AAl71ty-yE5edBHS4_y_tHs4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWFqZXQ3MzgiLCJleHBpcmVzSW4iOjE3NDIwNjU1MzksImlhdCI6MTc0MTk3OTEzOX0.PqIXRTBzyUz5gj8BwhwCvqoLL84-iYDObsmbJQ5UJeU

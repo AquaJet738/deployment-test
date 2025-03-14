@@ -39,16 +39,31 @@ const IMAGES = [
 export function useImageFetching(imageId, delay=1000) {
     const [isLoading, setIsLoading] = useState(true);
     const [fetchedImages, setFetchedImages] = useState([]);
+
     useEffect(() => {
-        setTimeout(() => {
-            if (imageId === "") {
-                setFetchedImages(IMAGES);
-            } else {
-                setFetchedImages(IMAGES.filter((image) => image.id === imageId));
+        async function fetchImages() {
+            setIsLoading(true);
+            try {
+                const response = await fetch("/api/images");
+                if (!response.ok) {
+                    throw new Error("Failed to fetch images");
+                }
+                const data = await response.json();
+                setFetchedImages(data);
+            } catch (error) {
+                console.error("Error fetching images:", error);
+                setFetchedImages([]);
+            } finally {
+                setIsLoading(false);
             }
-            setIsLoading(false);
+        };
+
+        const timer = setTimeout(() => {
+            fetchImages();
         }, delay);
-    }, [imageId]);
+
+        return () => clearTimeout(timer);
+    }, [imageId, delay]);
 
     return { isLoading, fetchedImages };
 }

@@ -9,7 +9,7 @@ export function registerImageRoutes(app: express.Application, mongoClient: Mongo
         try {
             if (typeof req.query.createdBy === "string") {
                 userId = req.query.createdBy;
-                console.log(userId);
+                // console.log(userId);
             }
 
             const imageProvider = new ImageProvider(mongoClient);

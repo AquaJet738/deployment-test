@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import UsernamePasswordForm from './UsernamePasswordForm';
+import { sendPostRequest } from './sendPostRequest';
 
 export default function LoginPage() {
     return (

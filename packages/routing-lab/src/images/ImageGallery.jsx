@@ -7,8 +7,8 @@ export function ImageGallery({ isLoading, fetchedImages }) {
     }
 
     const imageElements = fetchedImages.map((image) => (
-        <div key={image.id} className="ImageGallery-photo-container">
-            <Link to={"/images/" + image.id}>
+        <div key={image._id} className="ImageGallery-photo-container">
+            <Link to={"/images/" + image._id}>
                 <img src={image.src} alt={image.name}/>
             </Link>
         </div>
