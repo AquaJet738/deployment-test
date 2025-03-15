@@ -8,19 +8,19 @@ Content-Type: application/json
 POST http://localhost:3000/auth/register
 Content-Type: application/json
 
-{ "username": "aquajet738", "password": "@$dfM0v1E" }
+{ "username": "aquajet738", "password": "P0k3moNQue$T!" }
 
 ### attempting to register without password
 POST http://localhost:3000/auth/register
 Content-Type: application/json
 
-{ "username": "aquajet738", "password": "" }
+{ "username": "konaPaws", "password": "" }
 
 ###
 POST http://localhost:3000/auth/login
 Content-Type: application/json
 
-{ "username": "aquajet738", "password": "@$dfM0v1E" }
+{ "username": "aquajet738", "password": "P0k3moNQue$T!" }
 
 ### invalid login
 POST http://localhost:3000/auth/login

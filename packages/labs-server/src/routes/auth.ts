@@ -39,21 +39,33 @@ export function registerAuthRoutes(app: express.Application, mongoClient: MongoC
                 error: "Bad request",
                 message: "Missing username or password"
             });
+
+            return;
+        }
+
+        if (!(await credentialsProvider.registerUser(username, password))) {
+            res.status(400).send({
+                error: "Bad request",
+                message: "Username already taken"
+            });
+
+            return;
         }
 
         try {
             await credentialsProvider.registerUser(username, password);
-            res.status(201).send();
+
+            const token = jwt.sign(
+                {
+                    username,
+                    expiresIn: Math.floor(Date.now() / 1000) + 24 * 60 * 60, // token expires 24 hours from now
+                },
+                process.env.JWT_SECRET || "oscarPastryVSLandoNoChancesIntoTurn1", // Replace with a secure secret
+                { algorithm: "HS256" }
+            );
+            
+            res.status(201).send({ token });
         } catch (error: any) {
-            if (error.message === "User already exists") {
-                res.status(400).send({
-                    error: "Bad request",
-                    message: "Username already taken"
-                });
-
-                return;
-            }
-
             res.status(500).send({ error: "Internal server error" });
         }
     });
