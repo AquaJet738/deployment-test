@@ -40,19 +40,22 @@ export function useImageFetching(imageId, authToken, delay=1000) {
     const [isLoading, setIsLoading] = useState(true);
     const [fetchedImages, setFetchedImages] = useState([]);
 
+    console.log("Auth Token:", authToken);
+
     useEffect(() => {
+        console.log("useEffect triggered with imageId:", imageId, "and authToken:", authToken);
+
         async function fetchImages() {
             setIsLoading(true);
             try {
                 const response = await fetch("/api/images", {
-                    method: "GET",
                     headers: {
-                        "Authorization": `Bearer ${authToken}`,
-                        "Content-Type": "application/json"
+                        "Authorization": `Bearer ${authToken}`
                     }
                 });
-
+                
                 console.log("Response status:", response.status);
+                console.log("Response headers:", response.headers);
 
                 if (!response.ok) {
                     throw new Error("Failed to fetch images");
@@ -66,15 +69,13 @@ export function useImageFetching(imageId, authToken, delay=1000) {
             } finally {
                 setIsLoading(false);
             }
-        }
+        };
 
-        if (authToken) {
-            const timer = setTimeout(() => {
-                fetchImages();
-            }, delay);
+        const timer = setTimeout(() => {
+            fetchImages();
+        }, delay);
 
-            return () => clearTimeout(timer);
-        }
+        return () => clearTimeout(timer);
     }, [imageId, authToken, delay]);
 
     return { isLoading, fetchedImages };

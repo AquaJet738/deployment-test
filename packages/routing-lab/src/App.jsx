@@ -51,7 +51,7 @@ function App() {
                     
                     <Route path="/images/:imageId" element={
                         <ProtectedRoute authToken={authToken}>
-                            <ImageDetails />
+                            <ImageDetails authToken={authToken} />
                         </ProtectedRoute>}
                     />
                     
