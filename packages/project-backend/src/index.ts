@@ -40,8 +40,7 @@ async function setUpServer() {
     registerListRoutes(app, mongoClient);
 
     app.get("*", (req: Request, res: Response) => {
-        console.log("none of the routes above me were matched");
-        res.sendFile(path.resolve(staticDir, "index.html"));
+        res.sendFile(path.join(__dirname, staticDir, "index.html"));
     });
 
     app.listen(PORT, () => {
