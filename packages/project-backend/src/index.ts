@@ -20,6 +20,8 @@ async function setUpServer() {
     const mongoClient = await MongoClient.connect(connectionString);
     // const collectionInfos = await mongoClient.db().listCollections().toArray();
 
+    console.log(staticDir);
+
     const app = express();
     app.use(express.static(staticDir));
     app.use(express.json());
@@ -31,12 +33,13 @@ async function setUpServer() {
     console.log("Attempting to register auth routes");
     registerAuthRoutes(app, mongoClient);
     app.use("/api/*", verifyAuthToken);
-
+    
     console.log("Attempting to register list routes");
     registerListRoutes(app, mongoClient);
 
     app.get("*", (req: Request, res: Response) => {
-        res.sendFile(path.join(__dirname, staticDir, "index.html"));
+        console.log("none of the routes above me were matched");
+        res.sendFile(path.resolve(staticDir, "index.html"));
     });
 
     app.listen(PORT, () => {
