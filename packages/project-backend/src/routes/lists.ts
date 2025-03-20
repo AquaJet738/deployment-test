@@ -4,6 +4,8 @@ import { ListProvider } from "../ListProvider";
 
 export function registerListRoutes(app: express.Application, mongoClient: MongoClient) {
     app.get("/api/lists", async (req: Request, res: Response) => {
+        console.log("Attempting to get lists");
+
         let userId: string | undefined = undefined;
 
         try {
