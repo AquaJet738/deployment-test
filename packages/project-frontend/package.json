@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "http-server -p 5173"
+    "start": "http-server -p 3000"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.8",
