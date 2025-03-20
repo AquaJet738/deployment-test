@@ -5,14 +5,34 @@ function AddTaskForm({ onNewTask }) {
     const [newTask, setTaskName] = React.useState("");
     const [dueDate, setDueDate] = React.useState("");
     const [nagPeriod, setNagPeriod] = React.useState("");  // this will be a dropdown, just using input as placeholder
+    const validNagPeriods = ["none", "minutes", "hours", "days", "weeks"];
+
+    const isValidDate = (date) => {
+        return /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/.test(date);
+    };
+
+    const isValidNagPeriod = (period) => {
+        return validNagPeriods.includes(period.toLowerCase());
+    };
 
     const handleAddTask = () => {
-        if (newTask.trim() && dueDate.trim() && nagPeriod.trim()) {
-            onNewTask(newTask, dueDate, nagPeriod);
-            setTaskName("");
-            setDueDate("");
-            setNagPeriod("");
+        if (!newTask.trim()) {
+            alert("Task name is required");
+            return;
         }
+        if (!isValidDate(dueDate)) {
+            alert("Due date must be in MM/DD/YYYY format");
+            return;
+        }
+        if (!isValidNagPeriod(nagPeriod)) {
+            alert("Nag period must be one of: none, minutes, hours, days, weeks");
+            return;
+        }
+
+        onNewTask(newTask, dueDate, nagPeriod);
+        setTaskName("");
+        setDueDate("");
+        setNagPeriod("");
     }; 
 
     return (
@@ -24,7 +44,7 @@ function AddTaskForm({ onNewTask }) {
                 onChange={(e) => setTaskName(e.target.value)}/>
             <input className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none 
                 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                placeholder="Due date" 
+                placeholder="Due date (MM/DD/YYYY)"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}/>
             <input className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none 

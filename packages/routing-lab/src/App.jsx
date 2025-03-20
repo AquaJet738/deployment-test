@@ -10,6 +10,7 @@ import { useImageFetching } from "./images/useImageFetching.js";
 import RegisterPage from "./auth/RegisterPage.jsx";
 import LoginPage from "./auth/LoginPage.jsx";
 import { ProtectedRoute } from "./ProtectedRoute.jsx";
+import UsernamePasswordForm from "./auth/UsernamePasswordForm.jsx";
 
 function App() {
     const [userName, setUserName] = React.useState("aquajet738");
@@ -17,8 +18,10 @@ function App() {
 
     const {isLoading, fetchedImages} = useImageFetching("");
 
-    const handleLoginSuccess = (token) => {
+    const handleLoginSuccess = (token, userName) => {
+        setUserName(userName);
         setAuthToken(token);
+        console.log("Current user:", userName)
         console.log("Stored token:", token);
     }
     

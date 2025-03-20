@@ -1,0 +1,42 @@
+### This is a comment
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{ "username": "newuser", "password": "password" }
+
+###
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{ "username": "aquajet738", "password": "P0k3moNQue$T!" }
+
+### attempting to register without password
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{ "username": "konaPaws", "password": "" }
+
+###
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{ "username": "aquajet738", "password": "P0k3moNQue$T!" }
+
+### invalid login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{ "username": "aquajet738", "password": "konapaws" }
+
+### missing username/password
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{ "username": "", "password": "" }
+
+### A second example, each request should be delimited by a triple hash
+GET http://localhost:3000/api/images
+
+### 
+GET http://localhost:3000/api/images
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFxdWFqZXQ3MzgiLCJleHBpcmVzSW4iOjE3NDIwNjU1MzksImlhdCI6MTc0MTk3OTEzOX0.PqIXRTBzyUz5gj8BwhwCvqoLL84-iYDObsmbJQ5UJeU

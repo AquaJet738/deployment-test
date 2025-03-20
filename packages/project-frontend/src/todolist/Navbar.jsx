@@ -1,13 +1,24 @@
 import React from "react";
-import { Spinner } from "./Spinner";
+import { Link } from "react-router";
+
+import { Spinner } from "../Spinner";
 
 // Implements a sticky navbar to the top of the page
 const Navbar = ({ darkMode }) => {
   const [isSidebarOpen, setSidebarOpen] = React.useState(true);
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
+
+  const navbarStyle = {
+    backgroundColor: darkMode ? "#333" : "#f5f5f5", // Dark gray for dark mode, light gray for light mode
+    color: darkMode ? "#fff" : "#000",
+    padding: "1.5em",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  };
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -28,16 +39,14 @@ const Navbar = ({ darkMode }) => {
   
   return (
     <>
-      <nav className={`fixed top-0 left-0 w-full h-14 p-4 flex items-center justify-center px-4 z-1001 shadow-md ${darkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
+      <nav style={navbarStyle} 
+        className={`fixed top-0 left-0 w-full h-14 p-4 flex items-center justify-center px-4 z-1001 shadow-md 
+          ${darkMode ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
         {isMobile && (
           <button onClick={toggleSidebar} className="absolute right-4 mr-4 text-xl">
             ☰
           </button>
         )}
-        <h1 className="absolute w-full text-center max-w-xs mx-auto sm:text-lg text-base font-bold break-words">
-          CSC 437 Final Project
-        </h1>
-
 
         {/* Loading indicator on desktop */}
         {!isMobile && loading && (
@@ -50,11 +59,11 @@ const Navbar = ({ darkMode }) => {
 
         {!isMobile && (
           <ul className="flex right-0 space-x-6 ml-auto mr-2">
-            <li><a href="#" className="hover:text-gray-300">Home</a></li>
-            <li><a href="#" className="hover:text-gray-300">My Profile</a></li>
+            <li><Link to="/" className="hover:text-gray-300">Home</Link></li>
+            <li><Link to="/mylists" className="hover:text-gray-300">My Lists</Link></li>
+            <li><Link to="/profile" className="hover:text-gray-300">My Profile</Link></li>
           </ul>
         )}
-
 
         {/* Loading indicator on mobile */}
         {isMobile && isSidebarOpen && (
@@ -62,8 +71,9 @@ const Navbar = ({ darkMode }) => {
               darkMode ? "bg-gray-700 text-white" : "bg-gray-100 text-black"
             }`}>
             <ul className="space-y-4">
-              <li><a href="#" className="block py-2">Home</a></li>
-              <li><a href="#" className="block py-2">My Profile</a></li>
+              <li><Link to="/" className="block py-2">Home</Link></li>
+              <li><Link to="/mylists" className="block py-2">My Lists</Link></li>
+              <li><Link to="/profile" className="block py-2">My Profile</Link></li>
             </ul>
           </div>
         )}

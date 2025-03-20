@@ -7,7 +7,11 @@ function Todo(props) {
         <div className="flex space-x-8">
             <label className="todo-label flex items-center space-x-4" htmlFor={props.id}>
                 <input id={props.id} type="checkbox" defaultChecked={props.completed} onChange={() => props.toggleTaskCompleted(props.id)}/> 
-                    <span>{props.name} - {props.dueDate || "No due date"} - {props.nagPeriod || "No nag period"}</span>
+                    <div className="grid grid-cols-3 gap-x-8 w-full">
+                        <span className="font-medium">{props.name}</span>
+                        <span>Complete by: {props.dueDate || "N/A"}</span>
+                        <span>Nag period: {props.nagPeriod || "None"}</span>
+                    </div>
             </label>
             <button className="text-gray-500 hover:text-gray-200" onClick={() => props.deleteTask(props.id)}>
                 <FontAwesomeIcon icon={faTrash} />

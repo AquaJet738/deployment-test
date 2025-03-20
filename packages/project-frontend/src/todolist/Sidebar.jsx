@@ -40,13 +40,16 @@ function Modal(props) {
 }
 
 // Implements a sidebar to the left side of the screen
-const Sidebar = ({ isOpen, isMobile, darkMode, toggleSidebar, setSelectedList }) => {
+const Sidebar = ({ isOpen, isMobile, darkMode, toggleSidebar, setSelectedList, selectedList }) => {
   const sidebarRef = React.useRef(null);
 
   // sidebar will also handle creation of new lists
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [newListName, setNewListName] = React.useState("");
   const [lists, setLists] = React.useState([]);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
+  const [listToDelete, setListToDelete] = React.useState(null);
+
 
   const handleCreateList = () => {
     if (newListName) {
@@ -55,6 +58,18 @@ const Sidebar = ({ isOpen, isMobile, darkMode, toggleSidebar, setSelectedList })
       setNewListName("");
       setIsModalOpen(false);
     }
+  };
+
+  const handleDeleteList = () => {
+    setLists((prevLists) => prevLists.filter((list) => list !== listToDelete));
+
+    // Reset selected list if it's the one being deleted
+    if (selectedList === listToDelete) {
+      setSelectedList(null);
+    }
+
+    setIsDeleteModalOpen(false);
+    setListToDelete(null);
   };
 
   React.useEffect(() => {
@@ -74,36 +89,37 @@ const Sidebar = ({ isOpen, isMobile, darkMode, toggleSidebar, setSelectedList })
     <>
       {isMobile && (
         <button onClick={toggleSidebar} 
-          style={{ position: "fixed", top: "1em", left: "1em", marginRight: "2em", zIndex: 1100 }}>
+          style={{ position: "fixed", top: "1em", left: "1em", zIndex: 1100 }}>
           ☰ View My Lists
         </button>
       )}
-    
+      
       <aside className="sidebar" 
-        style={{...styles.sidebar, 
-        backgroundColor: darkMode ? "#3E3E3E" : "#D8D7D7",
-        color: darkMode ? "white" : "black",
-        width: isMobile && !isOpen ? "0" : "12.5em",
-        transform: isMobile && !isOpen ? "translateX(-100%)" : "translateX(0)",
-        transition: "transform 0.3s ease-in-out",
-        overflow: isMobile && !isOpen ? "hidden" : "visible"}}>
+        style={{
+          ...styles.sidebar,
+          backgroundColor: darkMode ? "#3E3E3E" : "#D8D7D7",
+          color: darkMode ? "white" : "black",
+          width: isMobile && !isOpen ? "0" : "12.5em",
+          transform: isMobile && !isOpen ? "translateX(-100%)" : "translateX(0)",
+        }}>
         <ul style={styles.list}>
           {lists.map((list, index) => (
-            <li key={index}>
-              <a href="#"
-              onClick={() => setSelectedList(list)}>
+            <li key={index} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <a href="#" 
+                onClick={() => setSelectedList(list)}
+                style={{ fontWeight: selectedList === list ? "bold" : "normal" }}>
                 {list}
               </a>
+              <button onClick={() => { setListToDelete(list); setIsDeleteModalOpen(true); }}
+                style={styles.deleteButton}>✖</button>
             </li>
           ))}
-
           <li>
             <button onClick={() => setIsModalOpen(true)} 
-              style={{ ...styles.link, background: "transparent", 
-                border: "none", color: darkMode ? "white" : "black" }}>
+              style={{ ...styles.link, background: "transparent", border: "none", color: darkMode ? "white" : "black" }}>
                 Create New List
             </button>
-          </li> {/* will turn this into a button*/}
+          </li>
         </ul>
       </aside>
 
@@ -115,34 +131,19 @@ const Sidebar = ({ isOpen, isMobile, darkMode, toggleSidebar, setSelectedList })
           placeholder="Enter list name"
           style={styles.input}
         />
-
         <div>
-          <button onClick={handleCreateList} style={styles.button}>
-            Create
-          </button>
-          <button
-            onClick={() => setIsModalOpen(false)}
-            style={{ ...styles.button, backgroundColor: "gray" }}>
-            Cancel
-          </button>
+          <button onClick={handleCreateList} style={styles.button}>Create</button>
+          <button onClick={() => setIsModalOpen(false)} style={{ ...styles.button, backgroundColor: "gray" }}>Cancel</button>
         </div>
       </Modal>
 
-      {/* prompts user to select a list 
-      <div style={styles.content}>
-        {selectedList ? (
-          <div>
-            <h2>{selectedList}</h2>
-            <p>This is the content for {selectedList}. You can add specific content for each list here.</p>
-           
-          </div>
-        ) : (
-          <div>
-            <h2>Welcome</h2>
-            <p>Select a list to view its contents.</p>
-          </div>
-        )}
-      </div> */}
+      <Modal isOpen={isDeleteModalOpen} onCloseRequested={() => setIsDeleteModalOpen(false)} headerLabel="Confirm Deletion">
+        <p>Are you sure you want to delete the list &quot;{listToDelete}&quot;?</p>
+        <div>
+          <button onClick={handleDeleteList} style={styles.button}>Delete</button>
+          <button onClick={() => setIsDeleteModalOpen(false)} style={{ ...styles.button, backgroundColor: "gray" }}>Cancel</button>
+        </div>
+      </Modal>
     </>
   );
 };
