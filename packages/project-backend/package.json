@@ -9,7 +9,7 @@
   },
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "You may use this template for both your labs and your project in CSC 437.  Let's take a tour so you can more easily customize the server to your needs.",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "dotenv": "^16.4.7",
