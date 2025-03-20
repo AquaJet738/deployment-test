@@ -39,6 +39,7 @@ async function setUpServer() {
 
     app.get("*", (req: Request, res: Response) => {
         console.log("none of the routes above me were matched");
+        console.log(path.resolve(staticDir, "index.html"));
         res.sendFile(path.resolve(staticDir, "index.html"));
     });
 
