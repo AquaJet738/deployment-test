@@ -54,6 +54,10 @@ const Sidebar = ({ isOpen, isMobile, darkMode, toggleSidebar, setSelectedList, s
   const saveListsToDB = async (updatedLists) => {
     const userId = userName; // Replace with actual logged-in user ID
     const response = await sendPostRequest("/api/lists", { userId, lists: updatedLists });
+
+    if (response && response.lists) {
+      setLists(response.lists);
+    }
   };
 
   const handleCreateList = async () => {
