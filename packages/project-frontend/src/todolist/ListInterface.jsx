@@ -138,7 +138,7 @@ function ListInterface(props) {
             <Navbar darkMode={darkMode}/>
             <Sidebar isOpen={isSidebarOpen} isMobile={isMobile} 
                 toggleSidebar={toggleSidebar} darkMode={darkMode} 
-                setSelectedList={setSelectedList}/>
+                setSelectedList={setSelectedList} userName={props.userName}/>
             <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode}/>
 
             <div className="flex right-0 justify-between items-center mt-4">

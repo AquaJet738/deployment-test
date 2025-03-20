@@ -1,4 +1,5 @@
 import React from "react";
+import { sendPostRequest } from "../auth/sendPostRequest";
 
 function Modal(props) {
     const modalRef = React.useRef(null);
@@ -40,7 +41,7 @@ function Modal(props) {
 }
 
 // Implements a sidebar to the left side of the screen
-const Sidebar = ({ isOpen, isMobile, darkMode, toggleSidebar, setSelectedList, selectedList }) => {
+const Sidebar = ({ isOpen, isMobile, darkMode, toggleSidebar, setSelectedList, selectedList, userName }) => {
   const sidebarRef = React.useRef(null);
 
   // sidebar will also handle creation of new lists
@@ -50,26 +51,30 @@ const Sidebar = ({ isOpen, isMobile, darkMode, toggleSidebar, setSelectedList, s
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
   const [listToDelete, setListToDelete] = React.useState(null);
 
+  const saveListsToDB = async (updatedLists) => {
+    const userId = userName; // Replace with actual logged-in user ID
+    const response = await sendPostRequest("/api/lists", { userId, lists: updatedLists });
+  };
 
-  const handleCreateList = () => {
+  const handleCreateList = async () => {
     if (newListName) {
-      console.log("Creating new list:", newListName);
-      setLists((prevLists) => [...prevLists, newListName]);
+      const updatedLists = [...lists, newListName];
+      setLists(updatedLists);
       setNewListName("");
       setIsModalOpen(false);
+      await saveListsToDB(updatedLists);
     }
   };
 
-  const handleDeleteList = () => {
-    setLists((prevLists) => prevLists.filter((list) => list !== listToDelete));
+  const handleDeleteList = async () => {
+    const updatedLists = lists.filter((list) => list !== listToDelete);
+    setLists(updatedLists);
 
-    // Reset selected list if it's the one being deleted
-    if (selectedList === listToDelete) {
-      setSelectedList(null);
-    }
-
+    setSelectedList(null);
     setIsDeleteModalOpen(false);
+
     setListToDelete(null);
+    await saveListsToDB(updatedLists);
   };
 
   React.useEffect(() => {

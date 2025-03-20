@@ -35,7 +35,7 @@ function App(props) {
 
                     <Route path="/mylists" element={
                         <ProtectedRoute authToken={authToken}>
-                            <ListInterface tasks={tasks} lists={lists} />
+                            <ListInterface userName={userName} tasks={tasks} lists={lists} />
                         </ProtectedRoute>
                     } />
 
