@@ -23,6 +23,8 @@ function App(props) {
     const tasks = props.tasks;
     const lists = props.lists;
 
+    console.log("Attempting to route to login page (all except login/register are protected)");
+    
     return (
         <BrowserRouter>
             <Routes>
