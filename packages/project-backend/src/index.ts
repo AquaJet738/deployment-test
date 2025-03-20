@@ -31,6 +31,10 @@ async function setUpServer() {
     console.log("Attempting to register auth routes");
     registerAuthRoutes(app, mongoClient);
     app.use("/api/*", verifyAuthToken);
+
+    app.get("/", (req: Request, res: Response) => {
+        res.send();
+    })
     
     console.log("Attempting to register list routes");
     registerListRoutes(app, mongoClient);
