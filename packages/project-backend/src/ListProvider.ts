@@ -2,7 +2,6 @@ import { MongoClient, ObjectId, Document } from "mongodb";
 
 interface TodoListDocument {
     _id: string;
-    createdAt: Date;
     author: string;
     contents: Array<any>;
 }
