@@ -27,24 +27,9 @@ function App(props) {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<MainLayout />} >
-                    <Route index element={
-                        <ProtectedRoute authToken={authToken}>
-                            <Homepage userName={userName} />
-                        </ProtectedRoute>
-                    } />
-
-                    <Route path="/mylists" element={
-                        <ProtectedRoute authToken={authToken}>
-                            <ListInterface userName={userName} tasks={tasks} lists={lists} />
-                        </ProtectedRoute>
-                    } />
-
-                    <Route path="/profile" element={
-                        <ProtectedRoute authToken={authToken}>
-                            <Account userName={userName} setUserName={setUserName} />
-                        </ProtectedRoute>
-                    } />
-
+                    <Route index element={<Homepage userName={userName} />} />
+                    <Route path="/mylists" element={<ListInterface userName={userName} tasks={tasks} lists={lists} />} />
+                    <Route path="/profile" element={<Account userName={userName} setUserName={setUserName} />} />
                     <Route path="/login" element={<LoginPage onLoginSuccess={handleLoginSuccess} />} />
                     <Route path="/register" element={<RegisterPage onLoginSuccess={handleLoginSuccess} />} />
                 </Route>
