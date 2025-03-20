@@ -4,6 +4,7 @@ import { registerAuthRoutes, verifyAuthToken } from "./routes/auth";
 
 import path from "path";
 import dotenv from "dotenv";
+import { registerListRoutes } from "routes/lists";
 
 dotenv.config(); // Read the .env file in the current working directory, and load values into process.env.
 const PORT = process.env.PORT || 3000;
@@ -29,6 +30,7 @@ async function setUpServer() {
 
     registerAuthRoutes(app, mongoClient);
     app.use("/api/*", verifyAuthToken);
+    registerListRoutes(app, mongoClient);
 
     app.get("*", (req: Request, res: Response) => {
         console.log("none of the routes above me were matched");
