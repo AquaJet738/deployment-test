@@ -1,6 +1,6 @@
 import React from "react";
-import { sendPostRequest } from "../auth/sendPostRequest";
 import { sendGetRequest } from "../auth/sendGetRequest";
+import { sendPatchRequest } from "../auth/sendPatchRequest";
 
 function Modal(props) {
     const modalRef = React.useRef(null);
@@ -67,7 +67,7 @@ const Sidebar = ({ isOpen, isMobile, darkMode, toggleSidebar, setSelectedList, s
 
   const saveListsToDB = async (updatedLists) => {
     const userId = userName; // Replace with actual logged-in user ID
-    const response = await sendPostRequest("/api/lists", { user: userId, lists: updatedLists });
+    const response = await sendPatchRequest("/api/lists", { user: userId, lists: updatedLists, authToken: authToken });
 
     if (response && response.lists) {
       setLists(response.lists);
