@@ -1,7 +1,7 @@
 import { MongoClient, ObjectId, Document } from "mongodb";
 
 interface TodoListDocument {
-    _id: string;
+    _id: ObjectId;
     author: string;
     contents: Array<any>;
 }
@@ -9,7 +9,7 @@ interface TodoListDocument {
 export class ListProvider {
     constructor(private readonly mongoClient: MongoClient) {}
 
-    async updateListName(listId: string, newName: string): Promise<number> {
+    async updateListName(listId: string, authorName: string, newName: string): Promise<number> {
         try {
             const collectionName = process.env.LISTS_COLLECTION_NAME;
             if (!collectionName) {
@@ -18,7 +18,7 @@ export class ListProvider {
 
             const collection = this.mongoClient.db().collection<TodoListDocument>(collectionName);
             const result = await collection.updateOne(
-                { _id: listId },
+                { _id: new ObjectId(listId), author: authorName  },
                 { $set: { name: newName } }
             );
             return result.modifiedCount;

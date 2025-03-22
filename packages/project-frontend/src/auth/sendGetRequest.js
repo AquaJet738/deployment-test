@@ -1,13 +1,12 @@
-export async function sendPostRequest(url, payload) {
+export async function sendGetRequest(url, authToken) {
     console.log(url);
-    console.log(payload);
     try {
         const response = await fetch(url, {
-            method: "POST",
+            method: "GET",
             headers: {
+                "Authorization": `Bearer ${authToken}`,
                 "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
+            }
         });
 
         if (!response.ok) {
@@ -16,7 +15,7 @@ export async function sendPostRequest(url, payload) {
 
         return await response.json();
     } catch (error) {
-        console.error("Error sending POST request:", error);
+        console.error("Error sending GET request:", error);
         return { type: "error", message: error.message };
     }
 }

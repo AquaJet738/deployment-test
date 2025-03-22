@@ -23,6 +23,7 @@ export function registerListRoutes(app: express.Application, mongoClient: MongoC
 
     app.patch("/api/lists/:id", async (req: Request, res: Response) => {
         const listId = req.params.id;
+        const author = req.body.author;
         const name = req.body.name;
         console.log("List ID:", listId);
         console.log("Name:", name);
@@ -38,7 +39,7 @@ export function registerListRoutes(app: express.Application, mongoClient: MongoC
 
         try {
             const listProvider = new ListProvider(mongoClient);
-            const updateResult = await listProvider.updateListName(listId, name);
+            const updateResult = await listProvider.updateListName(listId, author, name);
 
             if (updateResult === 0) {
                 res.status(404).send({

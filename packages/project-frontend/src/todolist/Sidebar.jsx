@@ -1,5 +1,6 @@
 import React from "react";
 import { sendPostRequest } from "../auth/sendPostRequest";
+import { sendGetRequest } from "../auth/sendGetRequest";
 
 function Modal(props) {
     const modalRef = React.useRef(null);
@@ -41,7 +42,7 @@ function Modal(props) {
 }
 
 // Implements a sidebar to the left side of the screen
-const Sidebar = ({ isOpen, isMobile, darkMode, toggleSidebar, setSelectedList, selectedList, userName }) => {
+const Sidebar = ({ isOpen, isMobile, darkMode, toggleSidebar, setSelectedList, selectedList, userName, authToken }) => {
   const sidebarRef = React.useRef(null);
 
   // sidebar will also handle creation of new lists
@@ -51,9 +52,22 @@ const Sidebar = ({ isOpen, isMobile, darkMode, toggleSidebar, setSelectedList, s
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
   const [listToDelete, setListToDelete] = React.useState(null);
 
+  const fetchListsFromDB = async () => {
+    const userId = userName; // Replace with actual logged-in user ID
+    const response = await sendGetRequest(`/api/lists?author=${userId}`, authToken);
+
+    if (response && response.lists) {
+      setLists(response.lists);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchListsFromDB();
+  }, []);
+
   const saveListsToDB = async (updatedLists) => {
     const userId = userName; // Replace with actual logged-in user ID
-    const response = await sendPostRequest("/api/lists", { userId, lists: updatedLists });
+    const response = await sendPostRequest("/api/lists", { user: userId, lists: updatedLists });
 
     if (response && response.lists) {
       setLists(response.lists);

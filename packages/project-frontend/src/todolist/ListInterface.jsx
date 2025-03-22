@@ -80,6 +80,8 @@ function ListInterface(props) {
     });
     const [selectedList, setSelectedList] = React.useState(null); // Track selected list 
 
+    const authToken = props.authToken;
+
     const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
     React.useEffect(() => {
@@ -138,7 +140,8 @@ function ListInterface(props) {
             <Navbar darkMode={darkMode}/>
             <Sidebar isOpen={isSidebarOpen} isMobile={isMobile} 
                 toggleSidebar={toggleSidebar} darkMode={darkMode} 
-                setSelectedList={setSelectedList} userName={props.userName}/>
+                setSelectedList={setSelectedList} userName={props.userName}
+                authToken={authToken} />
             <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode}/>
 
             <div className="flex right-0 justify-between items-center mt-4">
